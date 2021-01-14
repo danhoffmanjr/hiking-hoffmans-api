@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{0F2851A0-3357-4B9A-A919-A5350C37E342}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,17 @@ Global
 		{0F2851A0-3357-4B9A-A919-A5350C37E342}.Release|x64.Build.0 = Release|Any CPU
 		{0F2851A0-3357-4B9A-A919-A5350C37E342}.Release|x86.ActiveCfg = Release|Any CPU
 		{0F2851A0-3357-4B9A-A919-A5350C37E342}.Release|x86.Build.0 = Release|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Debug|x64.Build.0 = Debug|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Debug|x86.Build.0 = Debug|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Release|x64.ActiveCfg = Release|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Release|x64.Build.0 = Release|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Release|x86.ActiveCfg = Release|Any CPU
+		{D2F67E95-5F3E-4757-8A0B-94C03505B9A9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
