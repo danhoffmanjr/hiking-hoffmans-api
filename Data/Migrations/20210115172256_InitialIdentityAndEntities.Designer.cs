@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(hhDbContext))]
-    [Migration("20210114225937_InitialIdentityAndEntities")]
+    [Migration("20210115172256_InitialIdentityAndEntities")]
     partial class InitialIdentityAndEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -307,6 +307,9 @@ namespace Data.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("LockoutEnabled")

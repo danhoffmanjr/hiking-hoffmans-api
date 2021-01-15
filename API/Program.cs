@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data;
+using Domain.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,19 +18,24 @@ namespace API
     {
         public static void Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
+            IHost host = CreateHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+                var logger = services.GetRequiredService<ILogger<Program>>();
                 try
                 {
                     var context = services.GetRequiredService<hhDbContext>();
+                    var userManager = services.GetRequiredService<UserManager<User>>();
+                    var roleManager = services.GetRequiredService<RoleManager<Role>>();
                     context.Database.Migrate();
+                    Seed.SeedData(context, userManager, roleManager).Wait();
+
+                    logger.LogInformation("Database migrations and seed data executed successfully.");
                 }
                 catch (Exception ex)
                 {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occured during migration.");
                 }
             }
