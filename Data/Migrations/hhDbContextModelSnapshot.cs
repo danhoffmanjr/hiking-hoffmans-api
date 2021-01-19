@@ -175,6 +175,9 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Attractions")
+                        .HasColumnType("text");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
@@ -202,7 +205,7 @@ namespace Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<string>("Tags")
+                    b.Property<string>("Suitabilities")
                         .HasColumnType("text");
 
                     b.Property<string>("Traffick")

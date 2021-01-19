@@ -30,7 +30,8 @@ namespace API
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     var roleManager = services.GetRequiredService<RoleManager<Role>>();
                     context.Database.Migrate();
-                    Seed.SeedData(context, userManager, roleManager).Wait();
+                    Seed.RolesAndUsers(userManager, roleManager).Wait();
+                    Seed.Trails(context).Wait();
 
                     logger.LogInformation("Database migrations and seed data executed successfully.");
                 }

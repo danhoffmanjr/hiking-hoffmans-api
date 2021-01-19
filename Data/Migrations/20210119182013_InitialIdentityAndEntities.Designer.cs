@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(hhDbContext))]
-    [Migration("20210115172256_InitialIdentityAndEntities")]
+    [Migration("20210119182013_InitialIdentityAndEntities")]
     partial class InitialIdentityAndEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -177,6 +177,9 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Attractions")
+                        .HasColumnType("text");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
@@ -204,7 +207,7 @@ namespace Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<string>("Tags")
+                    b.Property<string>("Suitabilities")
                         .HasColumnType("text");
 
                     b.Property<string>("Traffick")

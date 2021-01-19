@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Interfaces;
+using Application.Trails;
 using Data;
 using Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -44,7 +47,11 @@ namespace API
             .AddSignInManager<SignInManager<User>>()
             .AddDefaultTokenProviders();
 
+            services.AddMediatR(typeof(List.Handler).Assembly);
+
             services.AddControllers();
+
+            services.AddScoped<ITrailsService, TrailsService>();
 
             services.AddSwaggerGen(c =>
             {

@@ -11,7 +11,7 @@ namespace Data
 {
     public class Seed
     {
-        public static async Task SeedData(hhDbContext context, UserManager<User> userManager, RoleManager<Role> roleManager)
+        public static async Task RolesAndUsers(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             // seed application roles
             if (!roleManager.Roles.Any())
@@ -116,6 +116,43 @@ namespace Data
                         userManager.AddClaimAsync(newUser, signUpDateClaim).Wait();
                     }
                 }
+            }
+        }
+
+        public static async Task Trails(hhDbContext context)
+        {
+            // seed application roles
+            if (!context.Trails.Any())
+            {
+                var trails = new List<Trail>
+                {
+                    new Trail
+                    {
+                        Name = "Sample Trail",
+                        Description = "Sample trail description text...",
+                        Length = 8.4,
+                        Difficulty = "Hard",
+                        Type = "Loop",
+                        Traffick = "Moderate",
+                        Attractions = "Waterfall, overlook",
+                        Suitabilities = "Dog friendly",
+                        Trailhead = new Trailhead
+                        {
+                            Street = "123 Sample St.",
+                            Street2 = null,
+                            City = "Chattanooga",
+                            County = "Hamilton",
+                            State = "TN",
+                            PostalCode = "37411"
+                        },
+                        Image = "assets/sampleTrail.jpg",
+                        Photos = null,
+                        Events = null
+                    }
+                };
+
+                await context.Trails.AddRangeAsync(trails);
+                await context.SaveChangesAsync();
             }
         }
     }
