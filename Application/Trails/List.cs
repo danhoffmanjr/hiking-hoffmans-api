@@ -21,7 +21,7 @@ namespace Application.Trails
             }
             public async Task<List<Trail>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await trailsService.GetAsync();
+                return await trailsService.ListAsync();
             }
         }
     }

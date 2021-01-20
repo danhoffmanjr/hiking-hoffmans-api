@@ -15,9 +15,12 @@ namespace Application.Trails
             this.context = context;
         }
 
-        public async Task<List<Trail>> GetAsync()
+        public async Task<List<Trail>> ListAsync()
         {
-            return await context.Trails.Include(t => t.Trailhead).Include(p => p.Photos).Include(e => e.Events).ToListAsync();
+            return await context.Trails.Include(t => t.Trailhead)
+                                       .Include(p => p.Photos)
+                                       .Include(e => e.Events)
+                                       .ToListAsync();
         }
     }
 }

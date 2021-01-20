@@ -6,6 +6,6 @@ namespace Application.Interfaces
 {
     public interface ITrailsService
     {
-        Task<List<Trail>> GetAsync();
+        Task<List<Trail>> ListAsync();
     }
 }
