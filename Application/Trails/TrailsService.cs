@@ -26,12 +26,9 @@ namespace Application.Trails
                                        .ToListAsync();
         }
 
-        public async Task<Trail> FindByIdAsync(string id)
+        public async Task<Trail> FindByIdAsync(Guid id)
         {
-            bool isValid = Guid.TryParse(id, out Guid trailId);
-            if (!isValid) throw new ArgumentException("Invalid Trail Id Provided");
-
-            var trail = await context.Trails.FindAsync(trailId);
+            var trail = await context.Trails.FindAsync(id);
             if (trail == null) throw new ArgumentNullException(nameof(trail));
 
             return trail;
