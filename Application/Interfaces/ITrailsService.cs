@@ -7,5 +7,6 @@ namespace Application.Interfaces
     public interface ITrailsService
     {
         Task<List<Trail>> ListAsync();
+        Task<Trail> FindByIdAsync(string id);
     }
 }

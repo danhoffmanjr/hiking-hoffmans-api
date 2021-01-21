@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Application.Interfaces;
 using Data;
@@ -20,7 +22,19 @@ namespace Application.Trails
             return await context.Trails.Include(t => t.Trailhead)
                                        .Include(p => p.Photos)
                                        .Include(e => e.Events)
+                                       .OrderBy(x => x.Name)
                                        .ToListAsync();
+        }
+
+        public async Task<Trail> FindByIdAsync(string id)
+        {
+            bool isValid = Guid.TryParse(id, out Guid trailId);
+            if (!isValid) throw new ArgumentException("Invalid Trail Id Provided");
+
+            var trail = await context.Trails.FindAsync(trailId);
+            if (trail == null) throw new ArgumentNullException(nameof(trail));
+
+            return trail;
         }
     }
 }
