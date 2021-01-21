@@ -7,10 +7,12 @@ namespace Data
 {
     public class hhDbContext : IdentityDbContext<User, Role, string>
     {
+        public hhDbContext() { }
+
         public hhDbContext(DbContextOptions options) : base(options)
         {
         }
 
-        public DbSet<Trail> Trails { get; set; }
+        public virtual DbSet<Trail> Trails { get; set; }
     }
 }
