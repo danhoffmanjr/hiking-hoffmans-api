@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Middleware;
 using Application.Interfaces;
+using Application.Security;
 using Application.Trails;
 using Data;
 using Domain.Entities;
@@ -57,6 +58,7 @@ namespace API
             });
 
             services.AddScoped<ITrailsService, TrailsService>();
+            services.AddScoped<IUserAccessor, UserAccessor>();
 
             services.AddSwaggerGen(c =>
             {

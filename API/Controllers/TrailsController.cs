@@ -21,5 +21,11 @@ namespace API.Controllers
         {
             return await Mediator.Send(new Details.Query { Id = id });
         }
+
+        [HttpPost("create")]
+        public async Task<ActionResult<Trail>> Create(Create.Query query)
+        {
+            return await Mediator.Send(query);
+        }
     }
 }

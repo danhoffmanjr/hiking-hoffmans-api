@@ -35,10 +35,38 @@ namespace Application.Trails
                                             .Include(p => p.Photos)
                                             .Include(e => e.Events)
                                             .FirstOrDefaultAsync();
-                                            
+
             if (trail == null) throw new RestException(HttpStatusCode.NotFound, new { trail = "Not found" });
 
             return trail;
+        }
+
+        public async Task<Trail> FindByNameAsync(string name)
+        {
+            var trail = await context.Trails.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+            if (trail == null) throw new ArgumentNullException(nameof(trail));
+            return trail;
+        }
+
+        public bool CheckExistsByName(string name)
+        {
+            ICollection<string> trailNames = context.Trails.Select(x => x.Name.ToLower()).ToList();
+            var exists = trailNames.Any(name => name == name.ToLower());
+            return exists;
+        }
+
+        public bool CheckExistsByAddress(string address)
+        {
+            ICollection<string> trailheadLocation = context.Trails.Select(x => x.Trailhead.Address.ToLower()).ToList();
+            trailheadLocation.Concat(context.Trails.Select(x => x.Trailhead.InternationalLocation.Address.ToLower()).ToList());
+            var exists = trailheadLocation.Any(location => location == address.ToLower());
+            return exists;
+        }
+
+        public async Task<bool> AddAsync(Trail trail)
+        {
+            context.Trails.Add(trail);
+            return await context.SaveChangesAsync() > 0;
         }
     }
 }
