@@ -30,7 +30,12 @@ namespace Application.Trails
 
         public async Task<Trail> FindByIdAsync(Guid id)
         {
-            var trail = await context.Trails.FindAsync(id);
+            var trail = await context.Trails.Where(x => x.Id == id)
+                                            .Include(x => x.Trailhead)
+                                            .Include(p => p.Photos)
+                                            .Include(e => e.Events)
+                                            .FirstOrDefaultAsync();
+                                            
             if (trail == null) throw new RestException(HttpStatusCode.NotFound, new { trail = "Not found" });
 
             return trail;

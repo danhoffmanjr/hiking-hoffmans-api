@@ -17,13 +17,12 @@ namespace Test.Trails
 
         public ListTest()
         {
-
             trailServiceMock = new Mock<ITrailsService>();
             listHandler = new List.Handler(trailServiceMock.Object);
         }
 
         [Fact]
-        public async Task ShouldReturnAllTrailsFromDbAsync()
+        public async Task Handle_ListAsync_ReturnsAllTrails()
         {
             //Arrange
             trailServiceMock.Setup(x => x.ListAsync()).ReturnsAsync(TrailsMockData.TrailListMock);

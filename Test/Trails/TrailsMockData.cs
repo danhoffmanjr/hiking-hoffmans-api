@@ -76,6 +76,40 @@ namespace Test.Trails
                 DateCreated = DateTime.Now,
                 DateModified = null,
                 IsActive = true
+            },
+            new Trail
+            {
+                Id = Guid.Parse("08489d16-d7b1-4a90-8bef-0b4c94b50fe0"),
+                Name = "Trail By Id",
+                Description = "Sample trail by id description text...",
+                Length = 8.4,
+                Difficulty = "Hard",
+                Type = "Loop",
+                Traffick = "Moderate",
+                Attractions = "Waterfall, Streams",
+                Suitabilities = "Dog friendly",
+                Trailhead = new Trailhead
+                {
+                    Id = Guid.NewGuid(),
+                    TrailId = Guid.NewGuid(),
+                    Street = "123 Sample St.",
+                    Street2 = null,
+                    City = "Chattanooga",
+                    County = "Hamilton",
+                    State = "TN",
+                    PostalCode = "37411",
+                    Latitude = null,
+                    Longitude = null,
+                    Altitude = 0
+                },
+                Image = "assets/sampleTrail.jpg",
+                Photos = new List<TrailPhoto>(),
+                Events = new List<Event>(),
+                CreatedBy = null,
+                UpdatedBy = null,
+                DateCreated = DateTime.Now,
+                DateModified = null,
+                IsActive = true
             }
         };
 

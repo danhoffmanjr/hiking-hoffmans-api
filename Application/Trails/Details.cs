@@ -29,7 +29,6 @@ namespace Application.Trails
             public Handler(ITrailsService trailsService)
             {
                 this.trailsService = trailsService;
-
             }
             public async Task<Trail> Handle(Query request, CancellationToken cancellationToken)
             {
