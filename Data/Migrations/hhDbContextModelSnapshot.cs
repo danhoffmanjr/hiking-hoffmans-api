@@ -140,6 +140,26 @@ namespace Data.Migrations
                     b.ToTable("EventPhotoGps");
                 });
 
+            modelBuilder.Entity("Domain.Entities.InternationalAddress", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("TrailheadLocationId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrailheadLocationId")
+                        .IsUnique();
+
+                    b.ToTable("InternationalAddress");
+                });
+
             modelBuilder.Entity("Domain.Entities.Role", b =>
                 {
                     b.Property<string>("Id")
@@ -244,16 +264,19 @@ namespace Data.Migrations
                     b.ToTable("TrailPhoto");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Trailhead", b =>
+            modelBuilder.Entity("Domain.Entities.TrailheadLocation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Altitude")
+                    b.Property<int?>("Altitude")
                         .HasColumnType("integer");
 
                     b.Property<string>("City")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Country")
                         .HasColumnType("text");
 
                     b.Property<string>("County")
@@ -285,7 +308,7 @@ namespace Data.Migrations
                     b.HasIndex("TrailId")
                         .IsUnique();
 
-                    b.ToTable("Trailhead");
+                    b.ToTable("TrailheadLocation");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -533,6 +556,15 @@ namespace Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.Entities.InternationalAddress", b =>
+                {
+                    b.HasOne("Domain.Entities.TrailheadLocation", null)
+                        .WithOne("InternationalLocation")
+                        .HasForeignKey("Domain.Entities.InternationalAddress", "TrailheadLocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Entities.TrailPhoto", b =>
                 {
                     b.HasOne("Domain.Entities.Trail", null)
@@ -542,11 +574,11 @@ namespace Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Entities.Trailhead", b =>
+            modelBuilder.Entity("Domain.Entities.TrailheadLocation", b =>
                 {
                     b.HasOne("Domain.Entities.Trail", null)
                         .WithOne("Trailhead")
-                        .HasForeignKey("Domain.Entities.Trailhead", "TrailId")
+                        .HasForeignKey("Domain.Entities.TrailheadLocation", "TrailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -630,6 +662,11 @@ namespace Data.Migrations
                     b.Navigation("Photos");
 
                     b.Navigation("Trailhead");
+                });
+
+            modelBuilder.Entity("Domain.Entities.TrailheadLocation", b =>
+                {
+                    b.Navigation("InternationalLocation");
                 });
 #pragma warning restore 612, 618
         }

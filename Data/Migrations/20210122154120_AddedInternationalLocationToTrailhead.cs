@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Data.Migrations
 {
-    public partial class InitialIdentityAndEntities : Migration
+    public partial class AddedInternationalLocationToTrailhead : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -212,11 +212,12 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Trailhead",
+                name: "TrailheadLocation",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TrailId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Country = table.Column<string>(type: "text", nullable: true),
                     Street = table.Column<string>(type: "text", nullable: true),
                     Street2 = table.Column<string>(type: "text", nullable: true),
                     City = table.Column<string>(type: "text", nullable: true),
@@ -225,13 +226,13 @@ namespace Data.Migrations
                     PostalCode = table.Column<string>(type: "text", nullable: true),
                     Latitude = table.Column<string>(type: "text", nullable: true),
                     Longitude = table.Column<string>(type: "text", nullable: true),
-                    Altitude = table.Column<int>(type: "integer", nullable: false)
+                    Altitude = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Trailhead", x => x.Id);
+                    table.PrimaryKey("PK_TrailheadLocation", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Trailhead_Trails_TrailId",
+                        name: "FK_TrailheadLocation_Trails_TrailId",
                         column: x => x.TrailId,
                         principalTable: "Trails",
                         principalColumn: "Id",
@@ -313,6 +314,25 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "InternationalAddress",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    TrailheadLocationId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InternationalAddress", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InternationalAddress_TrailheadLocation_TrailheadLocationId",
+                        column: x => x.TrailheadLocationId,
+                        principalTable: "TrailheadLocation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EventPhotoGps",
                 columns: table => new
                 {
@@ -387,8 +407,14 @@ namespace Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trailhead_TrailId",
-                table: "Trailhead",
+                name: "IX_InternationalAddress_TrailheadLocationId",
+                table: "InternationalAddress",
+                column: "TrailheadLocationId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrailheadLocation_TrailId",
+                table: "TrailheadLocation",
                 column: "TrailId",
                 unique: true);
 
@@ -425,7 +451,7 @@ namespace Data.Migrations
                 name: "EventPhotoGps");
 
             migrationBuilder.DropTable(
-                name: "Trailhead");
+                name: "InternationalAddress");
 
             migrationBuilder.DropTable(
                 name: "TrailPhoto");
@@ -441,6 +467,9 @@ namespace Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "EventPhoto");
+
+            migrationBuilder.DropTable(
+                name: "TrailheadLocation");
 
             migrationBuilder.DropTable(
                 name: "Event");

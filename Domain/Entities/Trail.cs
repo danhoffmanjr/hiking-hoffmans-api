@@ -14,7 +14,7 @@ namespace Domain.Entities
         public string Traffick { get; set; }
         public string Attractions { get; set; }
         public string Suitabilities { get; set; }
-        public Trailhead Trailhead { get; set; }
+        public TrailheadLocation Trailhead { get; set; }
         public string Image { get; set; }
         public ICollection<TrailPhoto> Photos { get; set; }
         public ICollection<Event> Events { get; set; }

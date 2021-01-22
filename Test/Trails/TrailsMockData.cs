@@ -20,7 +20,7 @@ namespace Test.Trails
                 Traffick = "Moderate",
                 Attractions = "Waterfall, Streams",
                 Suitabilities = "Dog friendly",
-                Trailhead = new Trailhead
+                Trailhead = new TrailheadLocation
                 {
                     Id = Guid.NewGuid(),
                     TrailId = Guid.NewGuid(),
@@ -54,7 +54,7 @@ namespace Test.Trails
                 Traffick = "Heavy",
                 Attractions = "Waterfalls, Overlooks",
                 Suitabilities = "Dog friendly",
-                Trailhead = new Trailhead
+                Trailhead = new TrailheadLocation
                 {
                     Id = Guid.NewGuid(),
                     TrailId = Guid.NewGuid(),
@@ -88,7 +88,7 @@ namespace Test.Trails
                 Traffick = "Moderate",
                 Attractions = "Waterfall, Streams",
                 Suitabilities = "Dog friendly",
-                Trailhead = new Trailhead
+                Trailhead = new TrailheadLocation
                 {
                     Id = Guid.NewGuid(),
                     TrailId = Guid.NewGuid(),
@@ -126,7 +126,7 @@ namespace Test.Trails
             Traffick = "Moderate",
             Attractions = "Waterfall, Streams",
             Suitabilities = "Dog friendly",
-            Trailhead = new Trailhead
+            Trailhead = new TrailheadLocation
             {
                 Id = Guid.NewGuid(),
                 TrailId = Guid.NewGuid(),

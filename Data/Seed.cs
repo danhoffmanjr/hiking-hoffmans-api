@@ -136,7 +136,7 @@ namespace Data
                         Traffick = "Moderate",
                         Attractions = "Waterfall, overlook",
                         Suitabilities = "Dog friendly",
-                        Trailhead = new Trailhead
+                        Trailhead = new TrailheadLocation
                         {
                             Street = "123 Sample St.",
                             Street2 = null,
