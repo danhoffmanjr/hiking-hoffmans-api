@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Application.Errors;
 using Application.Interfaces;
 using Data;
 using Domain.Entities;
@@ -29,7 +31,7 @@ namespace Application.Trails
         public async Task<Trail> FindByIdAsync(Guid id)
         {
             var trail = await context.Trails.FindAsync(id);
-            if (trail == null) throw new ArgumentNullException(nameof(trail));
+            if (trail == null) throw new RestException(HttpStatusCode.NotFound, new { trail = "Not found" });
 
             return trail;
         }
