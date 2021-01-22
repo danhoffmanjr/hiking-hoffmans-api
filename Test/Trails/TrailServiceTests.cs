@@ -54,7 +54,7 @@ namespace Test.Trails
 
             //Assert
             Assert.IsType<Trail>(trail);
-            Assert.Equal(trail.Name, "Trail By Id");
+            Assert.Equal("Trail By Id", trail.Name);
         }
 
         [Fact]

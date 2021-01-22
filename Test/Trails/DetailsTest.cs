@@ -36,7 +36,7 @@ namespace Test.Trails
             //Assert
             trailServiceMock.Verify(x => x.FindByIdAsync(id), Times.Once);
             Assert.IsType<Trail>(trail);
-            Assert.Equal(trail.Name, "Trail By Id");
+            Assert.Equal("Trail By Id", trail.Name);
         }
 
         [Fact]
