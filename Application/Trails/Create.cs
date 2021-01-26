@@ -79,12 +79,14 @@ namespace Application.Trails
             public async Task<Trail> Handle(Query request, CancellationToken cancellationToken)
             {
                 var currentUserId = userAccessor.GetCurrentUserId();
+                if (currentUserId == null) throw new RestException(HttpStatusCode.BadRequest, new { User = "User cannot be null. Permission Denied." });
                 if (currentUserId == "InvalidUserName") throw new RestException(HttpStatusCode.BadRequest, new { User = "Invalid user. Permission Denied." });
 
                 var currentUser = await userManager.FindByIdAsync(currentUserId);
+                if (currentUser == null) throw new RestException(HttpStatusCode.BadRequest, new { User = "User not found. Permission Denied." });
                 if (await userManager.IsInRoleAsync(currentUser, RoleNames.User))
                 {
-                    throw new RestException(HttpStatusCode.Forbidden, new { Forbidden = "Invalid user role. Permission Denied." });
+                    throw new RestException(HttpStatusCode.Forbidden, new { Forbidden = "Insufficient role privileges. Permission Denied." });
                 }
 
                 var trailNameExists = trailsService.CheckExistsByName(request.Name);
@@ -120,6 +122,7 @@ namespace Application.Trails
                             Address = request.Trailhead.InternationalLocation.Address
                         } : null
                     },
+                    Image = request.Image,
                     CreatedBy = currentUser.Id,
                     DateCreated = DateTime.UtcNow,
                     IsActive = true

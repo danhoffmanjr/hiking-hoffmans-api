@@ -6,39 +6,27 @@ using Application.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Moq;
+using Test.Shared.Identity;
 using Xunit;
 
 namespace Test.Security
 {
     public class UserAccessorTests
     {
-        private Mock<IHttpContextAccessor> httpContextAccessorMock;
-        private IdentityErrorDescriber identityErrors;
-
-        public UserAccessorTests()
-        {
-            httpContextAccessorMock = new Mock<IHttpContextAccessor>();
-            identityErrors = new IdentityErrorDescriber();
-        }
+        public UserAccessorTests() { }
 
         [Fact]
         public void GetCurrentUserId_AuthenticatedUser_ReturnsUserIdString()
         {
-            //Arrange
-            var claimsMock = new List<Claim>() { new Claim(ClaimTypes.NameIdentifier, "user_id_value") };
-            var identityMock = new ClaimsIdentity(claimsMock, "TestAuthType");
-            var claimsPrincipalMock = new ClaimsPrincipal(identityMock);
-
-            httpContextAccessorMock.Setup(x => x.HttpContext.User).Returns(claimsPrincipalMock);
-            var userAccessorMock = new UserAccessor(httpContextAccessorMock.Object, identityErrors);
+            //Arrang
+            var userAccessorMock = MockHelpers.TestUserAccessor();
 
             //Act
             string userId = userAccessorMock.GetCurrentUserId();
-            Console.WriteLine(userId);
 
             //Assert
             Assert.IsType<string>(userId);
-            Assert.Equal("user_id_value", userId);
+            Assert.Equal("b43bffdf-93a6-49ce-ae88-12ae68077d36", userId);
         }
     }
 }
