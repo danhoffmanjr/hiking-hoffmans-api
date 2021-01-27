@@ -23,6 +23,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NETCore.MailKit.Extensions;
+using NETCore.MailKit.Infrastructure.Internal;
 
 namespace API
 {
@@ -53,6 +55,13 @@ namespace API
             .AddDefaultTokenProviders();
 
             services.AddMediatR(typeof(List.Handler).Assembly);
+
+            var mailKitOptions = Configuration.GetSection("SmtpEthereal").Get<MailKitOptions>();
+            services.AddMailKit(config =>
+            {
+                var options = new MailKitOptions();
+                config.UseMailKit(mailKitOptions);
+            });
 
             services.AddControllers().AddFluentValidation(config =>
             {

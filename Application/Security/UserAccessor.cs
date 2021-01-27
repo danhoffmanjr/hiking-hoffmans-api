@@ -27,7 +27,7 @@ namespace Application.Security
             var userId = user?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
             var errorCode = errors.InvalidUserName(nameof(user)).Code;
 
-            if (userId == null) throw new RestException(HttpStatusCode.BadRequest, new { User = "User cannot be null. Permission Denied." });
+            if (userId == null) throw new RestException(HttpStatusCode.BadRequest, new { User = "Unauthenticated user. Permission Denied." });
             if (userId == errorCode) throw new RestException(HttpStatusCode.BadRequest, new { User = "Invalid user. Permission Denied." });
 
             return userId;
