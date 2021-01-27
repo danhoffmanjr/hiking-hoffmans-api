@@ -2,9 +2,8 @@ using System;
 
 namespace Domain.Entities
 {
-    public class EventPhotoGps
+    public class EventPhotoGps  : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid EventPhotoId { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }

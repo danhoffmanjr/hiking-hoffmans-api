@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class Event : DbMetadata
+    public class Event : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid TrailId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

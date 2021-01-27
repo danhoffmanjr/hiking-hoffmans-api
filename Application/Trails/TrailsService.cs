@@ -36,7 +36,7 @@ namespace Application.Trails
                                             .Include(e => e.Events)
                                             .FirstOrDefaultAsync();
 
-            if (trail == null) throw new RestException(HttpStatusCode.NotFound, new { trail = "Not found" });
+            if (trail == null) throw new RestException(HttpStatusCode.NotFound, new { Trail = "Not found" });
 
             return trail;
         }
@@ -61,6 +61,12 @@ namespace Application.Trails
             trailheadLocation.Concat(context.Trails.Select(x => x.Trailhead.InternationalLocation.Address.ToLower()).ToList());
             var exists = trailheadLocation.Any(location => location == address.ToLower());
             return exists;
+        }
+
+        public async Task<bool> SaveAsync(Trail trail)
+        {
+            context.Trails.Add(trail);
+            return await context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> AddAsync(Trail trail)

@@ -2,9 +2,8 @@ using System;
 
 namespace Domain.Entities
 {
-    public class WeatherCondition
+    public class WeatherCondition : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid EventId { get; set; }
         public string CurrentCondition { get; set; }
         public DateTimeOffset ObservationDate { get; set; }

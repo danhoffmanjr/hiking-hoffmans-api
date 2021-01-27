@@ -2,9 +2,8 @@ using System;
 
 namespace Domain.Entities
 {
-    public class TrailheadLocation
+    public class TrailheadLocation : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid TrailId { get; set; }
         public string Country { get; set; } = "United States";
         public string Street { get; set; }
