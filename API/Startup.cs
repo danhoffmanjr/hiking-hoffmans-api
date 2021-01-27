@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using API.Middleware;
 using Application.Interfaces;
 using Application.Security;
+using Application.Shared;
 using Application.Trails;
 using Data;
 using Domain.Entities;
+using Domain.Interfaces;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -59,6 +61,8 @@ namespace API
 
             services.AddScoped<ITrailsService, TrailsService>();
             services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IEntity, BaseEntity>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.AddSwaggerGen(c =>
             {

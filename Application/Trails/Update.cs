@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Application.Trails
 {
-    public class Edit
+    public class Update
     {
         public class Command : IRequest
         {

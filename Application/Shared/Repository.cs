@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 using Application.Errors;
@@ -101,5 +102,7 @@ namespace Application.Shared
             if (!succeeded) throw new RestException(HttpStatusCode.BadRequest, new { Delete = $"Problem deleting {nameof(T)}." });
             return succeeded;
         }
+
+        public async Task<T> FindByConditionAsync(Expression<Func<T, bool>> predicate) => await context.Set<T>().FirstOrDefaultAsync(predicate);
     }
 }

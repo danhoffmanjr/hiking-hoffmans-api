@@ -12,7 +12,7 @@ namespace Application.Trails
     {
         public class Query : IRequest<Trail>
         {
-            public string Id { get; set; }
+            public Guid Id { get; set; }
         }
 
         public class QueryValidator : AbstractValidator<Query>
@@ -32,9 +32,9 @@ namespace Application.Trails
             }
             public async Task<Trail> Handle(Query request, CancellationToken cancellationToken)
             {
-                bool isValid = Guid.TryParse(request.Id, out Guid trailId);
-                if (!isValid) throw new ArgumentException("Invalid Trail Id Provided");
-                return await trailsService.FindByIdAsync(trailId);
+                // bool isValid = Guid.TryParse(request.Id, out Guid trailId);
+                // if (!isValid) throw new ArgumentException("Invalid Trail Id Provided");
+                return await trailsService.FindByIdAsync(request.Id);
             }
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Domain.Entities;
 
@@ -17,5 +18,6 @@ namespace Application.Interfaces
         Task<bool> UpdateAsync(T entity);
         bool Delete(Guid id);
         Task<bool> DeleteAsync(Guid id);
+        Task<T> FindByConditionAsync(Expression<Func<T, bool>> predicate);
     }
 }

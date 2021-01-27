@@ -16,7 +16,7 @@ namespace Application.Trails
     {
         public class Command : IRequest
         {
-            public string Id { get; set; }
+            public Guid Id { get; set; }
         }
 
         public class QueryValidator : AbstractValidator<Command>
@@ -41,8 +41,8 @@ namespace Application.Trails
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                bool isValid = Guid.TryParse(request.Id, out Guid trailId);
-                if (!isValid) throw new RestException(HttpStatusCode.BadRequest, new { Id = "Invalid Trail Id Provided." });
+                // bool isValid = Guid.TryParse(request.Id, out Guid trailId);
+                // if (!isValid) throw new RestException(HttpStatusCode.BadRequest, new { Id = "Invalid Trail Id Provided." });
 
                 var currentUserId = userAccessor.GetCurrentUserId();
 
@@ -53,7 +53,7 @@ namespace Application.Trails
                     throw new RestException(HttpStatusCode.Forbidden, new { Forbidden = "Insufficient role privileges. Permission Denied." });
                 }
 
-                var succeeded = await repository.DeleteAsync(trailId);
+                var succeeded = await repository.DeleteAsync(request.Id);
                 if (succeeded) return Unit.Value;
 
                 throw new RestException(HttpStatusCode.BadRequest, new { EditTrail = "Problem deleting trail." });
