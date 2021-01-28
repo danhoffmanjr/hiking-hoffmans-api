@@ -86,7 +86,7 @@ namespace Application.Users
                 var emailToken = await userManager.GenerateEmailConfirmationTokenAsync(user);
                 emailToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(emailToken));
 
-                var verifyUrl = $"{request.Origin}/authenticate/verifyEmail?token={emailToken}&email={request.Email}";
+                var verifyUrl = $"{request.Origin}/authentication/verifyEmail?token={emailToken}&email={request.Email}";
 
                 var emailBody = $"<h3>VERIFY EMAIL</h3><p>Thanks for registering with the Hiking Hoffmans app!<p><br />"
                                 + $"<p>Please click the below link to verify your email address:</p><p><a href='{verifyUrl}'>{verifyUrl}</a></p>"

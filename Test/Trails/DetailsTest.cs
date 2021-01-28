@@ -27,7 +27,7 @@ namespace Test.Trails
             var id = Guid.Parse("08489d16-d7b1-4a90-8bef-0b4c94b50fe0");
             trailServiceMock.Setup(x => x.FindByIdAsync(id)).ReturnsAsync(TrailsMockData.TrailByIdMock);
 
-            var validGuidRequest = new Details.Query() { Id = id.ToString() };
+            var validGuidRequest = new Details.Query() { Id = id };
             var cancellationToken = new CancellationToken();
 
             //Act
@@ -43,7 +43,7 @@ namespace Test.Trails
         public async Task Handle_InvalidGuidIsProvided_ThrowsArgumentException()
         {
             //Arrange
-            var invalidGuidRequest = new Details.Query() { Id = It.IsAny<string>() };
+            var invalidGuidRequest = new Details.Query() { Id = It.IsAny<Guid>() };
             var cancellationToken = new CancellationToken();
 
             //Assert with Action
