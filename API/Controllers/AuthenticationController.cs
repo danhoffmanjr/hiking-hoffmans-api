@@ -14,5 +14,14 @@ namespace API.Controllers
         {
             return await Mediator.Send(query);
         }
+
+        [AllowAnonymous]
+        [HttpPost("verifyEmail")]
+        public async Task<ActionResult> ConfirmEmail(ConfirmEmail.Command command)
+        {
+            var results = await Mediator.Send(command);
+            if (!results.Succeeded) return BadRequest("Problem verifying email address.");
+            return Ok("Email address verified - you can now login.");
+        }
     }
 }

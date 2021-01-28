@@ -121,7 +121,7 @@ namespace Data
 
         public static async Task Trails(hhDbContext context)
         {
-            // seed application roles
+            // seed trails
             if (!context.Trails.Any())
             {
                 var trails = new List<Trail>
