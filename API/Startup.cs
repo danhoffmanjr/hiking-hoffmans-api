@@ -11,9 +11,11 @@ using Domain.Interfaces;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,7 +53,7 @@ namespace API
             .AddSignInManager<SignInManager<User>>()
             .AddDefaultTokenProviders();
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:TokenKey"])); // TokenKey stored in appsettings.json for development. Will need to be stored on server in Production.
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:TokenKey"])); // TokenKey stored in appsettings.development.json for development. Will need to be stored on server in Production.
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {
@@ -87,7 +89,12 @@ namespace API
                 config.UseMailKit(mailKitOptions);
             });
 
-            services.AddControllers().AddFluentValidation(config =>
+            services.AddControllers(opt =>
+            {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                opt.Filters.Add(new AuthorizeFilter(policy));
+            })
+            .AddFluentValidation(config =>
             {
                 config.RegisterValidatorsFromAssemblyContaining<List>();
             });
@@ -102,6 +109,31 @@ namespace API
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
                 options.CustomSchemaIds(x => x.FullName);
+                // To Enable authorization using Swagger (JWT)  
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()  
+                {  
+                    Name = "Authorization",  
+                    Type = SecuritySchemeType.ApiKey,  
+                    Scheme = "Bearer",  
+                    BearerFormat = "JWT",  
+                    In = ParameterLocation.Header,  
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",  
+                });  
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement  
+                {  
+                    {  
+                          new OpenApiSecurityScheme  
+                            {  
+                                Reference = new OpenApiReference  
+                                {  
+                                    Type = ReferenceType.SecurityScheme,  
+                                    Id = "Bearer"  
+                                }  
+                            },  
+                            new string[] {}  
+  
+                    }  
+                });
             });
         }
 

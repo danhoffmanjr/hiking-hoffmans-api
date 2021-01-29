@@ -92,7 +92,7 @@ namespace Application.Users
                                 + $"<p>Please click the below link to verify your email address:</p><p><a href='{verifyUrl}'>{verifyUrl}</a></p>"
                                 + $"<p><strong>You will not be able to login to Hiking Hoffmans until your email is verified via the link above.</strong></p>";
 
-                await emailService.SendAsync(request.Email, "Hiking Hoffmans - Email Confirmation Requested", emailBody, true);
+                await emailService.SendAsync(request.Email, "Hiking Hoffmans - Email Verification Required", emailBody, true);
 
                 return Unit.Value;
             }
