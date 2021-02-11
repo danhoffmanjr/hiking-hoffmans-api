@@ -16,7 +16,7 @@ namespace API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             IHost host = CreateHostBuilder(args).Build();
 
@@ -29,9 +29,10 @@ namespace API
                     var context = services.GetRequiredService<hhDbContext>();
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     var roleManager = services.GetRequiredService<RoleManager<Role>>();
-                    context.Database.Migrate();
-                    Seed.RolesAndUsers(userManager, roleManager).Wait();
-                    Seed.Trails(context).Wait();
+
+                    await context.Database.MigrateAsync();
+                    await Seed.RolesAndUsers(userManager, roleManager);
+                    await Seed.Trails(context);
 
                     logger.LogInformation("Database migrations and seed data executed successfully.");
                 }
@@ -41,7 +42,7 @@ namespace API
                 }
             }
 
-            host.Run();
+            await host.RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

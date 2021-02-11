@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [AllowAnonymous]
     public class TrailsController : BaseController
     {
         [AllowAnonymous]
@@ -32,14 +31,14 @@ namespace API.Controllers
             return await Mediator.Send(request);
         }
 
-        [HttpPut("/update/{id}")]
+        [HttpPut("update/{id}")]
         public async Task<ActionResult<Unit>> Update(Guid id, Update.Command command)
         {
             command.Id = id;
             return await Mediator.Send(command);
         }
 
-        [HttpDelete("/delete/{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<ActionResult<Unit>> Delete(Guid id)
         {
             return await Mediator.Send(new Delete.Command { Id = id });
